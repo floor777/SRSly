@@ -1,21 +1,28 @@
+
+
+import 'card.dart';
+
 class Deck {
   String deckName = '';
   int newCount = 0;
   int learnCount = 0;
   int dueCount = 0;
-  bool isSelected = false;
+
+  List<FlashCard> cardsArray = [];
   // int intervalValue = 1;
 
 
-  Deck({required this.deckName, required this.newCount,
-    required this.learnCount, required this.dueCount, required this.isSelected
-  });
+  Deck(
+      {required this.deckName, required this.newCount,
+    required this.learnCount, required this.dueCount
+      }
+      );
   // Deck() {
   //   deckName = 'meow';
   //   newCount = 0;
   //   learnCount = 0;
   //   dueCount = 0;
-  //   intervalValue = 1;
+  //
   // }
   String get getDeckName {
     return deckName;
@@ -49,9 +56,6 @@ class Deck {
     this.dueCount = newDueCount;
   }
 
-  bool get isDeckSelected {
-    return this.isSelected;
-  }
 
 
 }
