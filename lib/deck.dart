@@ -7,14 +7,13 @@ class Deck {
   int newCount = 0;
   int learnCount = 0;
   int dueCount = 0;
-
   List<FlashCard> cardsArray = [];
   // int intervalValue = 1;
 
 
   Deck(
       {required this.deckName, required this.newCount,
-    required this.learnCount, required this.dueCount
+    required this.learnCount, required this.dueCount, required this.cardsArray
       }
       );
   // Deck() {
