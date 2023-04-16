@@ -64,6 +64,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 Expanded(
+                  flex: 10,
                   child: Container(
                     margin: EdgeInsets.only(top: 30, bottom: 30),
                     width: 200,
