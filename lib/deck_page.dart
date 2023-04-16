@@ -19,49 +19,45 @@ class MyDeckPage extends StatefulWidget {
 
 class _MyDeckPageState extends State<MyDeckPage> {
   String testingmethods = '';
+  final myController = TextEditingController();
+  final renameController = TextEditingController();
+
 
   List<Deck> decks = [
-    Deck(deckName: 'love', newCount: 0, learnCount: 0, dueCount: 0,
-      isSelected: true, ),
-    Deck(deckName: 'hate', newCount: 0, learnCount: 0, dueCount: 0,
-        isSelected: false),
-    Deck(deckName: 'swift', newCount: 0, learnCount: 0, dueCount: 0,
-        isSelected: false),
-    Deck(deckName: 'kanji', newCount: 0, learnCount: 0, dueCount: 0,
-        isSelected: false),
-    Deck(deckName: 'hate', newCount: 0, learnCount: 0, dueCount: 0,
-        isSelected: false),
-    Deck(deckName: 'swift', newCount: 0, learnCount: 0, dueCount: 0,
-        isSelected: false),
-    Deck(deckName: 'kanji', newCount: 0, learnCount: 0, dueCount: 0,
-        isSelected: false),
-    Deck(deckName: 'hate', newCount: 0, learnCount: 0, dueCount: 0,
-        isSelected: false),
-    Deck(deckName: 'swift', newCount: 0, learnCount: 0, dueCount: 0,
-        isSelected: false),
-    Deck(deckName: 'kanji', newCount: 0, learnCount: 0, dueCount: 0,
-        isSelected: false),
-    Deck(deckName: 'hate', newCount: 0, learnCount: 0, dueCount: 0,
-        isSelected: false),
-    Deck(deckName: 'swift', newCount: 0, learnCount: 0, dueCount: 0,
-        isSelected: false),
-    Deck(deckName: 'kanji', newCount: 0, learnCount: 0, dueCount: 0,
-        isSelected: false),
-    Deck(deckName: 'hate', newCount: 0, learnCount: 0, dueCount: 0,
-        isSelected: false),
-    Deck(deckName: 'swift', newCount: 0, learnCount: 0, dueCount: 0,
-        isSelected: false),
-    Deck(deckName: 'end', newCount: 0, learnCount: 0, dueCount: 0,
-        isSelected: false),
+    Deck(deckName: 'law school vocab', newCount: 2, learnCount: 0, dueCount: 6),
+    Deck(deckName: 'medical school vocab', newCount: 0, learnCount: 0, dueCount: 0,),
+    Deck(deckName: 'swift', newCount: 0, learnCount: 0, dueCount: 0,),
+    Deck(deckName: 'law school vocab', newCount: 2, learnCount: 0, dueCount: 6),
+    Deck(deckName: 'medical school vocab', newCount: 0, learnCount: 0, dueCount: 0,),
+    Deck(deckName: 'swift', newCount: 0, learnCount: 0, dueCount: 0,),
+    Deck(deckName: 'law school vocab', newCount: 2, learnCount: 0, dueCount: 6),
+    Deck(deckName: 'medical school vocab', newCount: 0, learnCount: 0, dueCount: 0,),
+    Deck(deckName: 'swift', newCount: 0, learnCount: 0, dueCount: 0,),
+    Deck(deckName: 'law school vocab', newCount: 2, learnCount: 0, dueCount: 6),
+    Deck(deckName: 'medical school vocab', newCount: 0, learnCount: 0, dueCount: 0,),
+    Deck(deckName: 'swift', newCount: 0, learnCount: 0, dueCount: 0,),
+    Deck(deckName: 'law school vocab', newCount: 2, learnCount: 0, dueCount: 6),
+    Deck(deckName: 'medical school vocab', newCount: 0, learnCount: 0, dueCount: 0,),
+    Deck(deckName: 'end', newCount: 0, learnCount: 0, dueCount: 0,),
+
   ];
+  String truncateWithEllipsis(int cutoff, String myString) {
+    // print('cutoff is: ' + cutoff.toString());
+    int buffer = cutoff - myString.length;
+    print('buffer is: ' + buffer.toString());
+    return (myString.length <= cutoff)
+        ? myString + ' ' * (buffer + 6)
+        : '${myString.substring(0, cutoff - 3)}...';
+  }
+
 
   @override
   Widget build(BuildContext context) {
     Deck deck = Deck(deckName: 'angry', newCount: 0,
-        learnCount: 0, dueCount: 0, isSelected: true);
+        learnCount: 0, dueCount: 0);
     // deck.setDeckName('revenge');
     // String test = deck.getDeckName;
-    int _selectedIndex;
+
 
 
     FlashCard card = FlashCard(frontItem: 'frontItem', backItem: 'backItem', intervalValue: 1);
@@ -75,6 +71,7 @@ class _MyDeckPageState extends State<MyDeckPage> {
     // print(decks[0].getDueCount);
     // decks[0].setDueCount(1);
     // // print(decks[0].getDueCount);
+
 
     return Scaffold(
       appBar: AppBar(
@@ -95,16 +92,131 @@ class _MyDeckPageState extends State<MyDeckPage> {
 
           child: Column(
             children: [
+
               Expanded(
                 child: ListView.builder(
+
                   shrinkWrap: true,
                   itemCount: decks.length,
                   itemBuilder: (ctx, index) =>
                       ListTile(
+                        leading:  Icon(Icons.square_rounded),
+                        title: Text(truncateWithEllipsis(15, decks[index].deckName)  + "  "
+                            "New: " + decks[index].newCount.toString() +
+                            "    Due: "
+                            + decks[index].dueCount.toString()),
+                        trailing: PopupMenuButton<String>(
+                          onSelected: (value) {
+                            if(value == "Delete Deck") {
+                              showDialog(
+                                  context: context,
+                                  builder: (ctx) => AlertDialog(
+                                    title: Center(child: Text("Are you sure you want to delete this deck?")),
+
+                                    actions: <Widget> [
+
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+
+                                        children: [
+                                          ElevatedButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  decks.removeAt(index);
+                                                });
+                                                Navigator.pop(context);
+                                              },
+                                              child: Text("Delete")),
+                                          ElevatedButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: Text("Cancel")
+                                          ),
+                                        ],
+                                      )
+                                    ],
+
+                                  )
+                              );
+                            }
+                            else if(value == "Rename Deck") {
+                              print('rename');
+                              showDialog(
+                                context: context,
+                                builder: (ctx) => AlertDialog(
+                                  title: Center(child: Text("Rename this deck?")),
+                                  actions: <Widget> [
+                                    Center(
+                                      child: TextField(
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(),
+                                          labelText: "New deck name",
+                                        ),
+                                        controller: renameController,
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+
+                                      children: [
+                                        ElevatedButton(
+                                            onPressed: () {
+                                              content: Text(renameController.text);
+                                              String bark = renameController.text;
+                                              setState(() {
+                                                decks[index].deckName = bark;
+
+                                              });
+                                              Navigator.pop(context);
+                                            },
+                                            child: Text("Rename")),
+                                        ElevatedButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+
+
+                                            },
+                                            child: Text("Cancel")
+                                        ),
+                                      ],
+                                    )
+                                  ],
+
+                                )
+
+                              );
+                              renameController.text = "";
+
+
+
+
+                              setState(() {
+
+                                // decks[index].deckName = "renamed";
+
+                              });
+                            }
+                            
+                          },
+                          onCanceled: () {
+                            print("canceled ");
+                          },
+                          icon: Icon(Icons.settings),
+
+                          itemBuilder: (_) {
+                            return const [
+                              PopupMenuItem<String>(child: Text("Delete Deck"), value: "Delete Deck",),
+                              PopupMenuItem<String>(child: Text("Rename Deck"), value: "Rename Deck",),
+                            ];
+                          },
+
+                        ),
+
                         onTap: () {
-                          _selectedIndex = index;
-                          print('this was the index: ' + _selectedIndex.toString());
-                          print(decks[_selectedIndex].deckName);
+
+                          print('this was the index: ' + index.toString());
+                          print(decks[index].deckName);
                           // setState(() {
                           //   decks.removeAt(_selectedIndex);
                           //
@@ -113,14 +225,9 @@ class _MyDeckPageState extends State<MyDeckPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) =>
-                                SelectedDeckPage(title: decks[_selectedIndex].deckName, decks: decks, selectedIndex: _selectedIndex)),
+                                SelectedDeckPage(title: decks[index].deckName, decks: decks, selectedIndex: index)),
                           );
                         },
-                        leading: Icon(Icons.rectangle),
-                        title: Text(decks[index].deckName),
-                        trailing: Text("New " + decks[index].newCount.toString() +
-                        "    Learn " + decks[index].learnCount.toString() + "    Due "
-                        + decks[index].dueCount.toString())
 
                       )
 
@@ -138,78 +245,81 @@ class _MyDeckPageState extends State<MyDeckPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            FittedBox(
-              fit: BoxFit.fitWidth,
-              // child: Text(
-              //   "Studied x cards in x seconds today (Xs/card)",
-              //   style: TextStyle (
-              //       fontWeight: FontWeight.bold
-              //   ),
-              // ),
-            ),
 
-            PopupMenuButton<String>(
-              initialValue: 'hello',
-              onCanceled: () {
-                testingmethods = 'canceled';
-                print(testingmethods);
-              },
+            // FittedBox(
+            //   fit: BoxFit.fitWidth,
+            //   // child: Text(
+            //   //   "Studied x cards in x seconds today (Xs/card)",
+            //   //   style: TextStyle (
+            //   //       fontWeight: FontWeight.bold
+            //   //   ),
+            //   // ),
+            // ),
+            
+            ElevatedButton(
+                onPressed: () {
+                   showDialog(
+                    context: context,
+                    builder: (ctx) => AlertDialog(
 
-              onSelected: (value) {
-                if(value == 'add') {
-                  print('add deck pressed');
+                      title: Center(child: Text("Create a deck?")),
 
-                }
-                else if(value == 'delete') {
-                  print('delete deck pressed');
-                }
-                else if(value == 'rename') {
-                  print('rename deck pressed');
-                }
+                      actions: <Widget>[
 
+                        TextField(
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Deck Name',
+                          ),
+                          controller: myController,
 
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 
+                          children: [
 
-              },
-
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20.0),
-
-                ),
-              ),
+                            ElevatedButton(
 
 
-              itemBuilder: (_) {
-                return const [
-                  PopupMenuItem<String>(child: Text("Add Deck"), value: "add",),
-                  PopupMenuItem<String>(child: Text("Delete Deck"), value: "delete",),
-                  PopupMenuItem<String>(child: Text("Rename Deck"), value: "rename",),
-                  PopupMenuItem<String>(child: Text("Cancel")),
-                ];
-              },
-              child: Container(
+                                onPressed: () {
+                                  content: Text(myController.text);
+                                  String meow = myController.text;
+                                  setState(() {
+                                    decks.add(new Deck(deckName: meow, newCount: 0,
+                                        learnCount: 0, dueCount: 0));
+                                    myController.text = '';
 
-                decoration: BoxDecoration(
-                    border: Border.all(
-                      width: 10,
-                      color: const Color.fromARGB(200, 139, 57, 81),
+
+                                  });
+                                  Navigator.pop(context);
+
+
+                            },
+                                child: Text("Create")
+                            ),
+                            ElevatedButton(
+
+                                onPressed: () {
+                                  Navigator.pop(context);
+
+
+                                },
+                                child: Text("Cancel")
+                            ),
+                          ],
+                        ),
+
+
+
+                      ],
                     ),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10)
-                    )
-                ),
-                child: const Text(
-                  'Edit Decks',
-                  style: TextStyle (
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30
-                  ),
-                ),
-              ),
+                  );
+                   myController.text = "";
+                },
+                child: Text('Create Deck')
 
-            ),
-
+            )
 
           ],
         ),
@@ -220,18 +330,7 @@ class _MyDeckPageState extends State<MyDeckPage> {
 
 
     );
-  }
-}
 
-class PopUpMenu extends StatelessWidget {
-  final List<PopupMenuEntry> menuList;
-
-  const PopUpMenu({Key? key, required this.menuList}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return PopupMenuButton(
-        itemBuilder: ((context) => menuList),
-    );
   }
 
 }
