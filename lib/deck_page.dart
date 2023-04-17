@@ -17,30 +17,32 @@ class MyDeckPage extends StatefulWidget {
   State<MyDeckPage> createState() => _MyDeckPageState();
 }
 
+List<Deck> decks = [
+  Deck(deckName: 'law school vocab', newCount: 2, learnCount: 0, dueCount: 6, cardsArray: []),
+  Deck(deckName: 'medical school vocab', newCount: 0, learnCount: 0, dueCount: 0, cardsArray: []),
+  Deck(deckName: 'swift', newCount: 0, learnCount: 0, dueCount: 0, cardsArray: []),
+  Deck(deckName: 'law school vocab', newCount: 2, learnCount: 0, dueCount: 6, cardsArray: []),
+  Deck(deckName: 'medical school vocab', newCount: 0, learnCount: 0, dueCount: 0, cardsArray: []),
+  Deck(deckName: 'swift', newCount: 0, learnCount: 0, dueCount: 0, cardsArray: []),
+  Deck(deckName: 'law school vocab', newCount: 2, learnCount: 0, dueCount: 6, cardsArray: []),
+  Deck(deckName: 'medical school vocab', newCount: 0, learnCount: 0, dueCount: 0, cardsArray: []),
+  Deck(deckName: 'swift', newCount: 0, learnCount: 0, dueCount: 0, cardsArray: []),
+  Deck(deckName: 'law school vocab', newCount: 2, learnCount: 0, dueCount: 6, cardsArray: []),
+  Deck(deckName: 'medical school vocab', newCount: 0, learnCount: 0, dueCount: 0, cardsArray: []),
+  Deck(deckName: 'swift', newCount: 0, learnCount: 0, dueCount: 0, cardsArray: []),
+  Deck(deckName: 'law school vocab', newCount: 2, learnCount: 0, dueCount: 6, cardsArray: []),
+  Deck(deckName: 'medical school vocab', newCount: 0, learnCount: 0, dueCount: 0, cardsArray: []),
+  Deck(deckName: 'end', newCount: 0, learnCount: 0, dueCount: 0, cardsArray: []),
+
+];
+
 class _MyDeckPageState extends State<MyDeckPage> {
   String testingmethods = '';
   final myController = TextEditingController();
   final renameController = TextEditingController();
 
 
-  List<Deck> decks = [
-    Deck(deckName: 'law school vocab', newCount: 2, learnCount: 0, dueCount: 6),
-    Deck(deckName: 'medical school vocab', newCount: 0, learnCount: 0, dueCount: 0,),
-    Deck(deckName: 'swift', newCount: 0, learnCount: 0, dueCount: 0,),
-    Deck(deckName: 'law school vocab', newCount: 2, learnCount: 0, dueCount: 6),
-    Deck(deckName: 'medical school vocab', newCount: 0, learnCount: 0, dueCount: 0,),
-    Deck(deckName: 'swift', newCount: 0, learnCount: 0, dueCount: 0,),
-    Deck(deckName: 'law school vocab', newCount: 2, learnCount: 0, dueCount: 6),
-    Deck(deckName: 'medical school vocab', newCount: 0, learnCount: 0, dueCount: 0,),
-    Deck(deckName: 'swift', newCount: 0, learnCount: 0, dueCount: 0,),
-    Deck(deckName: 'law school vocab', newCount: 2, learnCount: 0, dueCount: 6),
-    Deck(deckName: 'medical school vocab', newCount: 0, learnCount: 0, dueCount: 0,),
-    Deck(deckName: 'swift', newCount: 0, learnCount: 0, dueCount: 0,),
-    Deck(deckName: 'law school vocab', newCount: 2, learnCount: 0, dueCount: 6),
-    Deck(deckName: 'medical school vocab', newCount: 0, learnCount: 0, dueCount: 0,),
-    Deck(deckName: 'end', newCount: 0, learnCount: 0, dueCount: 0,),
 
-  ];
   String truncateWithEllipsis(int cutoff, String myString) {
     // print('cutoff is: ' + cutoff.toString());
     int buffer = cutoff - myString.length;
@@ -54,7 +56,7 @@ class _MyDeckPageState extends State<MyDeckPage> {
   @override
   Widget build(BuildContext context) {
     Deck deck = Deck(deckName: 'angry', newCount: 0,
-        learnCount: 0, dueCount: 0);
+        learnCount: 0, dueCount: 0, cardsArray: []);
     // deck.setDeckName('revenge');
     // String test = deck.getDeckName;
 
@@ -64,10 +66,10 @@ class _MyDeckPageState extends State<MyDeckPage> {
 
 
 
-    print(decks[0].cardsArray.length);
-    decks[0].cardsArray.add(card);
-    print(decks[0].cardsArray.length);
-    print(decks[0].cardsArray[0].backItem);
+    // print(decks[0].cardsArray.length);
+    // decks[0].cardsArray.add(card);
+    // print(decks[0].cardsArray.length);
+    // print(decks[0].cardsArray[0].backItem);
     // print(decks[0].getDueCount);
     // decks[0].setDueCount(1);
     // // print(decks[0].getDueCount);
@@ -287,7 +289,7 @@ class _MyDeckPageState extends State<MyDeckPage> {
                                   String meow = myController.text;
                                   setState(() {
                                     decks.add(new Deck(deckName: meow, newCount: 0,
-                                        learnCount: 0, dueCount: 0));
+                                        learnCount: 0, dueCount: 0, cardsArray: []));
                                     myController.text = '';
 
 

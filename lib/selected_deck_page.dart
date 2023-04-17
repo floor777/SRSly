@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:untitled/add_card_page.dart';
 import 'package:untitled/deck.dart';
 import 'package:untitled/study_card_page.dart';
 import 'deck_page.dart';
@@ -8,9 +9,6 @@ class SelectedDeckPage extends StatefulWidget {
   final List<Deck> decks;
   final int selectedIndex;
   const SelectedDeckPage({super.key, required this.title, required this.decks, required this.selectedIndex});
-
-
-
   @override
   State<SelectedDeckPage> createState() => _SelectedDeckPageState();
 }
@@ -102,6 +100,13 @@ class _SelectedDeckPageState extends State<SelectedDeckPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     GestureDetector(
+                      onTap: () {
+                        print('add card clicked');
+                        Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) =>  AddCardPage(deckTitle: widget.title, currentDeck: widget.decks[widget.selectedIndex],))
+                              );
+                      },
                       child: const Text('Add Card',
                         style: TextStyle (
                             fontSize: 30,
@@ -116,6 +121,9 @@ class _SelectedDeckPageState extends State<SelectedDeckPage> {
                       //   },
                     ),
                     GestureDetector(
+                      onTap: () {
+                        print('delete card clicked');
+                      },
                       child: const Text('Delete Card',
                         style: TextStyle (
                             fontSize: 30,
@@ -130,6 +138,9 @@ class _SelectedDeckPageState extends State<SelectedDeckPage> {
                       //   },
                     ),
                     GestureDetector(
+                      onTap: () {
+                        print('edit card clicked');
+                      },
                       child: const Text('Edit Card',
                         style: TextStyle (
                             fontSize: 30,
