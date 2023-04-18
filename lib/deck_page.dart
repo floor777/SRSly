@@ -46,7 +46,7 @@ class _MyDeckPageState extends State<MyDeckPage> {
   String truncateWithEllipsis(int cutoff, String myString) {
     // print('cutoff is: ' + cutoff.toString());
     int buffer = cutoff - myString.length;
-    print('buffer is: ' + buffer.toString());
+
     return (myString.length <= cutoff)
         ? myString + ' ' * (buffer + 6)
         : '${myString.substring(0, cutoff - 3)}...';

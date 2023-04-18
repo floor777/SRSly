@@ -1,15 +1,56 @@
+import 'dart:math';
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled/deck_page.dart';
+import 'package:untitled/sign_up_page.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 
 class LoginPage extends StatefulWidget {
+
   const LoginPage({Key? key}) : super(key: key);
 
   @override
   State<LoginPage> createState() => _LoginPageState();
+
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+  final usernameTextController = TextEditingController();
+  final passwordTextController = TextEditingController();
+
+  Future<void> login() async {
+    try {
+    final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: usernameTextController.text,
+      password: passwordTextController.text,
+    );
+
+    print('logged in successfully');
+    FirebaseDatabase database = FirebaseDatabase.instance;
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const MyDeckPage(title: "strange")),
+    );
+  } on FirebaseAuthException catch (e) {
+    if (e.code == 'user-not-found') {
+      print('No user found for that email.');
+    } else if (e.code == 'wrong-password') {
+      print('Wrong password provided for that user.');
+    }
+    else {
+      print('different error:' + e.message.toString());
+    }
+  }
+
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,25 +77,28 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 Container(
                   margin: EdgeInsets.only(left: 30, right: 30, bottom: 10, top: 10),
-                  child: const TextField(
+                  child: TextField(
                     obscureText: false,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Email',
                     ),
+                    controller: usernameTextController,
                   ),
                 ),
                 Container(
                   margin: EdgeInsets.only(left: 30, right: 30, bottom: 10, top: 10),
-                  child: const TextField(
-                    obscureText: false,
+                  child: TextField(
+                    obscureText: true,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Password',
                     ),
+                    controller: passwordTextController,
                   ),
                 ),
                 Container(
+
                   margin: EdgeInsets.only(top: 10, bottom: 20),
                   child: const Text(
                     'Forgot password?',
@@ -75,10 +119,8 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const MyDeckPage(title: "strange")),
-                        );
+                          login();
+
 
                       },
                       child: Text("Login"),
@@ -91,37 +133,41 @@ class _LoginPageState extends State<LoginPage> {
           ),
 
           Expanded(
-            flex: 10,
+            flex: 5,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
                   margin: EdgeInsets.only(right: 10),
-                  child: Text(
-                      'App logo'
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const SignUpPage(title: "Selected Deck Name")),
+                      );
+                    },
+                    child: const Text('Sign up',
+                      style: TextStyle (
+                          color: Colors.red,
+                          fontWeight: FontWeight.bold
+                      ),
+                    ),
+
                   ),
-                ),
-                IconButton(
-                    onPressed: () {
-
-                },
-                    icon: Icon(Icons.abc)
-                ),
-                IconButton(
-                    onPressed: () {
-
-                },
-                    icon: Icon(Icons.access_time )
                 ),
 
               ],
             ),
           )
         ],
+
       )
-      
-      
+
+
+
+
     );
+
   }
 }
