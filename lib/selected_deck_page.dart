@@ -8,7 +8,8 @@ class SelectedDeckPage extends StatefulWidget {
   final String title;
   final List<Deck> decks;
   final int selectedIndex;
-  const SelectedDeckPage({super.key, required this.title, required this.decks, required this.selectedIndex});
+  final String userName;
+  const SelectedDeckPage({super.key, required this.title, required this.decks, required this.selectedIndex, required this.userName});
   @override
   State<SelectedDeckPage> createState() => _SelectedDeckPageState();
 }
@@ -61,9 +62,13 @@ class _SelectedDeckPageState extends State<SelectedDeckPage> {
                       onTap: () {
                         print('add card clicked');
 
+
                         Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) =>  AddCardPage(deckTitle: widget.title, currentDeck: widget.decks[widget.selectedIndex],))
+                                MaterialPageRoute(builder: (context) =>
+                                    AddCardPage(userName: widget.userName, deckTitle: widget.title,
+                                    currentDeck: widget.decks[widget.selectedIndex],
+                                        index: widget.selectedIndex))
                               );
                       },
                       child: const Text('Add Card',

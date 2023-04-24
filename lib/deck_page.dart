@@ -47,10 +47,10 @@ readDeckFromDatabase(String lovely) async {
       print(i);
 
 
-      for(int j = 0; j < newDeck['deck' + i.toString()][4].length; j++) {
+      for(int j = 0; j < newDeck['deck' + i.toString()][1].length; j++) {
 
-        FlashCard card = FlashCard(frontItem: newDeck['deck' + i.toString()][4][j][0],
-            backItem: newDeck['deck1'][4][j][1]);
+        FlashCard card = FlashCard(frontItem: newDeck['deck' + i.toString()][1][j][0],
+            backItem: newDeck['deck1'][1][j][1]);
         duck.cardsArray.add(card);
 
 
@@ -188,6 +188,15 @@ class _MyDeckPageState extends State<MyDeckPage> {
                                                       content: Text(renameController.text);
                                                       String bark = renameController.text;
                                                       setState(() {
+                                                        // print('cards array below');
+                                                        // print(decks[index].cardsArray);
+                                                        // List<Object?> cards = [];
+                                                        // decks[index].cardsArray.forEach((element) {
+                                                        //   Object? ob = [element.frontItem, element.backItem, 0];
+                                                        //   cards.add(ob);
+                                                        //
+                                                        //
+                                                        // });
 //
                                                       ref.child('users/${widget.title}').update({
                                                         'deck${index + 1}/0': bark
@@ -232,7 +241,7 @@ class _MyDeckPageState extends State<MyDeckPage> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(builder: (context) =>
-                                      SelectedDeckPage(title: decks[index].deckName, decks: decks, selectedIndex: index)),
+                                      SelectedDeckPage(userName: widget.title, title: decks[index].deckName, decks: decks, selectedIndex: index)),
                                 );
                                 },
                             )
@@ -291,7 +300,7 @@ class _MyDeckPageState extends State<MyDeckPage> {
                                   String meow = myController.text;
                                   setState(() {
                                     ref.child('users/' + widget.title).update({
-                                      'deck' + ((decks.length + 1).toString()): [meow, 3, 3, 3, [["u1front3", "u1back3", 0], ["u1front3", "u1back3", 0]]],
+                                      'deck' + ((decks.length + 1).toString()): [meow, [["samplefront", "sampleback"]]],
                                     }
 
 
