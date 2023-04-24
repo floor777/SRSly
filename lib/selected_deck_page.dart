@@ -37,49 +37,7 @@ class _SelectedDeckPageState extends State<SelectedDeckPage> {
                 Column(
 
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
 
-                      children:  [
-
-                        Text("New: ", style: TextStyle (
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold
-                        ),
-                        ),
-                        Text(widget.decks[widget.selectedIndex].newCount.toString(), style: TextStyle (
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold
-                        ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children:  [
-                        Text("Learning: ", style: TextStyle (
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold
-                        ),),
-                        Text(widget.decks[widget.selectedIndex].learnCount.toString(), style: TextStyle (
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold
-                        ),),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children:  [
-                        Text("Due: ", style: TextStyle (
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold
-                        ),),
-                        Text(widget.decks[widget.selectedIndex].dueCount.toString(), style: TextStyle (
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold
-                        ),),
-                      ],
-                    ),
                   ],
                 ),
                 ElevatedButton(onPressed: () {
@@ -102,6 +60,7 @@ class _SelectedDeckPageState extends State<SelectedDeckPage> {
                     GestureDetector(
                       onTap: () {
                         print('add card clicked');
+
                         Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) =>  AddCardPage(deckTitle: widget.title, currentDeck: widget.decks[widget.selectedIndex],))

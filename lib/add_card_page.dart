@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:untitled/deck.dart';
 import 'package:untitled/card.dart';
+import 'package:untitled/deck_page.dart';
 
 class AddCardPage extends StatefulWidget {
   final String deckTitle;
@@ -90,7 +91,8 @@ class _AddCardPageState extends State<AddCardPage> {
                     onPressed: () {
                       print("add card pressed");
                       setState(() {
-                        widget.currentDeck.cardsArray.add(FlashCard(frontItem: frontTextController.text, backItem: backTextController.text, intervalValue: 0));
+                        widget.currentDeck.cardsArray.add(FlashCard(frontItem: frontTextController.text, backItem: backTextController.text));
+                        decks;
 
                       });
                     },

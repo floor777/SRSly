@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:untitled/login_page.dart';
+import 'package:firebase_database/firebase_database.dart';
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key, required String title}) : super(key: key);
 
@@ -11,6 +12,11 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   final usernameTextController = TextEditingController();
   final passwordTextController = TextEditingController();
+  final ref = FirebaseDatabase.instance.ref();
+
+
+
+
 
   Future<void> signUp() async {
     try {
@@ -18,6 +24,7 @@ class _SignUpPageState extends State<SignUpPage> {
         email: usernameTextController.text,
         password: passwordTextController.text,
       );
+      print(testing());
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const LoginPage()),
@@ -30,6 +37,15 @@ class _SignUpPageState extends State<SignUpPage> {
       }
     } catch (e) {
       print(e);
+    }
+  }
+
+  Future<void> testing() async {
+    final snapshot  = await ref.child('users/user1').get();
+    if (snapshot.exists) {
+      print(snapshot.value);
+    } else {
+      print('No data available.');
     }
   }
 
