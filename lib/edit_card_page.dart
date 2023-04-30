@@ -15,7 +15,8 @@ class EditCardsPage extends StatefulWidget {
 
 class _EditCardsPageState extends State<EditCardsPage> {
   final myController = TextEditingController();
-  final renameController = TextEditingController();
+  final frontSideTextController = TextEditingController();
+  final backSideTextController = TextEditingController();
   final ref = FirebaseDatabase.instance.ref();
   @override
   Widget build(BuildContext context) {
@@ -135,40 +136,41 @@ class _EditCardsPageState extends State<EditCardsPage> {
                                 actions: <Widget> [
                                   Center(
                                     child: TextField(
+                                      
                                       decoration: InputDecoration(
                                         border: OutlineInputBorder(),
-                                        labelText: "New deck name",
+                                        labelText: "Front",
                                       ),
-                                      controller: renameController,
+                                      controller: frontSideTextController,
                                     ),
+                                    //
+                                  ),
+                                  Center(
+                                      child: TextField(
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(),
+                                          labelText: "Back",
+                                        ),
+                                        controller: backSideTextController,
+                                      ),
                                   ),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                                     children: [
                                       ElevatedButton(
                                           onPressed: () async {
-                                            content: Text(renameController.text);
-                                            String bark = renameController.text;
+                                            content: Text(frontSideTextController.text);
+                                            String frontSide = frontSideTextController.text;
+                                            String backSide = backSideTextController.text;
                                             setState(() {
-                                              // print('cards array below');
-                                              // print(decks[index].cardsArray);
-                                              // List<Object?> cards = [];
-                                              // decks[index].cardsArray.forEach((element) {
-                                              //   Object? ob = [element.frontItem, element.backItem, 0];
-                                              //   cards.add(ob);
-                                              //
-                                              //
-                                              // });
-                                              // below iis immportant
 
-                                              // ref.child('users/josh@gmail').update({
-                                              //   'deck${index + 1}/1/' + index.toString() + '/0': bark
-                                              // // });
                                               ref.child('users/' + widget.title).update({
-                                                'deck' + (widget.selectedIndex + 1).toString() + '/1/' + index.toString() + '/0': bark
+                                                'deck' + (widget.selectedIndex + 1).toString() + '/1/' + index.toString() + '/0': frontSide,
+                                                'deck' + (widget.selectedIndex + 1).toString() + '/1/' + index.toString() + '/1': backSide
                                               });
 
-                                              widget.decks[widget.selectedIndex].cardsArray[index].frontItem = bark;
+                                              widget.decks[widget.selectedIndex].cardsArray[index].frontItem = frontSide;
+                                              widget.decks[widget.selectedIndex].cardsArray[index].backItem = backSide;
                                             });
                                             Navigator.pop(context);
                                           },
@@ -184,7 +186,8 @@ class _EditCardsPageState extends State<EditCardsPage> {
                                 ],
                               )
                           );
-                          renameController.text = "";
+                          frontSideTextController.text = "";
+                          backSideTextController.text = "";
 
                         }
                       },
