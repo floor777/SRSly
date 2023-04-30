@@ -56,11 +56,11 @@ class _SelectedDeckPageState extends State<SelectedDeckPage> {
                 ElevatedButton(onPressed: () {
                   // print('widget.decks[widget.selectedIndex].deckName: ' + widget.decks[widget.selectedIndex].deckName);
 
-                  //a
+                  //aa
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const StudyCardPage(title: "Selected Deck Name x")),
-                  );
+                    MaterialPageRoute(builder: (context) => StudyCardPage(title: widget.decks[widget.selectedIndex].deckName, deck: widget.decks[widget.selectedIndex]),
+                  ));
 
                 },
                     child: Text("Study Now", style: TextStyle (
@@ -109,23 +109,7 @@ class _SelectedDeckPageState extends State<SelectedDeckPage> {
                       //   },
                     ),
 
-                    GestureDetector(
-                      onTap: () {
-                        print('delete card clicked');
-                      },
-                      child: const Text('Delete Card',
-                        style: TextStyle (
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold
-                        ),
-                      ),
-                      // onTap: () {
-                      //   Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(builder: (context) => const SelectedDeckPage(title: "Selected Deck Name")),
-                      //   );
-                      //   },
-                    ),
+                    //aa
                     GestureDetector(
                       onTap: () {
                         print('edit card clicked');

@@ -61,12 +61,6 @@ class _EditCardsPageState extends State<EditCardsPage> {
                                               //   );
                                               // }
 
-                                              //
-                                              //TRY TO FIX TO WHERE CARD AT INDEX GETS FINAL CARD INDEX
-                                              //aaxxx
-                                              // print(widget.decks[widget.selectedIndex - 1].cardsArray.length);
-
-                                              // get information of last item
 
 
                                               ref.child('users/' + widget.title +
@@ -90,7 +84,8 @@ class _EditCardsPageState extends State<EditCardsPage> {
 
 
                                               // change frontitem of selected card to last onez
-                                              // widget.decks[widget.selectedIndex].cardsArray[index].frontItem = widget.decks[widget.selectedIndex].cardsArray[widget.decks[widget.selectedIndex].cardsArray.length - 1].frontItem;
+                                              widget.decks[widget.selectedIndex].cardsArray[index].frontItem = widget.decks[widget.selectedIndex].cardsArray[widget.decks[widget.selectedIndex].cardsArray.length - 1].frontItem;
+                                              widget.decks[widget.selectedIndex].cardsArray[index].backItem = widget.decks[widget.selectedIndex].cardsArray[widget.decks[widget.selectedIndex].cardsArray.length - 1].backItem;
                                               // set last item to null(delete last item from database)as
                                               //
                                               print('lala below');
@@ -104,6 +99,7 @@ class _EditCardsPageState extends State<EditCardsPage> {
                                               // remove last item from deck
                                               print('last item to fremove from deck index: ' + (widget.decks[widget.selectedIndex].cardsArray.length - 1).toString());
                                               widget.decks[widget.selectedIndex].cardsArray.removeAt(widget.decks[widget.selectedIndex].cardsArray.length - 1);
+                                              //
 
 
 //
