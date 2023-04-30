@@ -18,9 +18,8 @@ class MyDeckPage extends StatefulWidget{
 
 
 List<Deck> decks = [
-
-
 ];
+String userName = "";
 
 final ref = FirebaseDatabase.instance.ref();
 
@@ -30,6 +29,7 @@ readDeckFromDatabase(String lovely) async {
   List<Deck> tempdecks = [];
   print('lovely below');
   print(lovely);
+  userName = lovely;
 
 
 
@@ -59,8 +59,6 @@ readDeckFromDatabase(String lovely) async {
       tempdecks.add(duck);
 
       decks = tempdecks;
-    //
-    //
     }
 
 
@@ -73,10 +71,10 @@ readDeckFromDatabase(String lovely) async {
 }
 
 
-
+//as
 
 class _MyDeckPageState extends State<MyDeckPage> {
-  Key key = UniqueKey();
+
 
 
   String testingmethods = '';
@@ -103,8 +101,6 @@ class _MyDeckPageState extends State<MyDeckPage> {
         title: Text(widget.title),
       ),
 
-
-
     body: Column(
 
       children: [
@@ -119,9 +115,13 @@ class _MyDeckPageState extends State<MyDeckPage> {
           child: Column(
             children: [
               FutureBuilder(
-
+//
                   future: readDeckFromDatabase(widget.title),
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if(decks.isNotEmpty) {
+                      print('deck wasnt empty');
+                      print(decks);
+                    }
                     return ListView.builder(
                         shrinkWrap: true,
                         itemCount: decks.length,
@@ -237,17 +237,34 @@ class _MyDeckPageState extends State<MyDeckPage> {
                               ),
                               onTap: () {
                                 print('this was the index: ' + index.toString());
-                                print(decks[index].deckName);
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) =>
-                                      SelectedDeckPage(userName: widget.title, title: decks[index].deckName, decks: decks, selectedIndex: index)),
-                                );
+                                print('widget.title: ' + widget.title);
+
+                                print('decks[index].deckname: ' +  decks[index].deckName);
+
+                                print('decks: ' + decks.toString());
+
+                                print('index: ' + index.toString());
+                                //asa
+                                try {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) =>
+                                        SelectedDeckPage(userName:  widget.title,  decks: decks.isNotEmpty ? decks : [], selectedIndex: index)),
+                                  );
+                                  //saaasdadddaAsaaaaazzz1zsza
+
+                                }
+                                catch(e) {
+                                  print('error found');
+                                  print(e);
+
+                                }
+
+
                                 },
                             )
                     );
                   }),
-
             ],
           ),
         ),

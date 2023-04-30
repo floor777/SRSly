@@ -114,9 +114,10 @@ class _AddCardPageState extends State<AddCardPage> {
                         //
                         // });
 
-                        ///
+                        //asdsad
                         print(widget.userName);
                         print('username above');
+
                         ref.child('users/' + widget.userName + '/').update({
                           'deck' + (widget.index + 1).toString() +
                               '/1/' + decks[widget.index].cardsArray.length.toString():

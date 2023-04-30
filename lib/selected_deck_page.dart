@@ -1,35 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:untitled/add_card_page.dart';
 import 'package:untitled/deck.dart';
+import 'package:untitled/edit_card_page.dart';
 import 'package:untitled/study_card_page.dart';
 import 'deck_page.dart';
-
+//a
 class SelectedDeckPage extends StatefulWidget {
-  final String title;
   final List<Deck> decks;
   final int selectedIndex;
   final String userName;
-  const SelectedDeckPage({super.key, required this.title, required this.decks, required this.selectedIndex, required this.userName});
+  const SelectedDeckPage({super.key,
+    required this.decks, required this.selectedIndex, required this.userName}
+      );
   @override
   State<SelectedDeckPage> createState() => _SelectedDeckPageState();
 }
 
 class _SelectedDeckPageState extends State<SelectedDeckPage> {
+  List<Deck> storedDecks = decks;
+
+//za
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
       appBar: AppBar(
 
-        title: Text(widget.decks[widget.selectedIndex].deckName),
+        title: Text(
+
+            widget.decks[widget.selectedIndex].deckName
+        ),
       ),
       body:
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
 
+
               children: [
-                 Text(widget.decks[widget.selectedIndex].deckName,
+                 Text(
+
+                   widget.decks[widget.selectedIndex].deckName
+                   ,
                   style: TextStyle (
                       fontSize: 30,
                       fontWeight: FontWeight.bold
@@ -42,6 +54,9 @@ class _SelectedDeckPageState extends State<SelectedDeckPage> {
                   ],
                 ),
                 ElevatedButton(onPressed: () {
+                  // print('widget.decks[widget.selectedIndex].deckName: ' + widget.decks[widget.selectedIndex].deckName);
+
+                  //a
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => const StudyCardPage(title: "Selected Deck Name x")),
@@ -61,15 +76,24 @@ class _SelectedDeckPageState extends State<SelectedDeckPage> {
                     GestureDetector(
                       onTap: () {
                         print('add card clicked');
+//
+                        print('widget.userName: ' + widget.userName);
+                        print('widget.username in selected deck page: ' + widget.userName );
+                        print('widget.decks[widget.selectedIndex: ' + widget.decks[widget.selectedIndex].toString());
+                        print('widget.selectedIndex: ' + widget.selectedIndex.toString());
 
 
                         Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) =>
-                                    AddCardPage(userName: widget.userName, deckTitle: widget.title,
-                                    currentDeck: widget.decks[widget.selectedIndex],
-                                        index: widget.selectedIndex))
-                              );
+                                    AddCardPage(
+                                        userName: widget.userName,
+                                        deckTitle: widget.decks[widget.selectedIndex].deckName,
+                                        currentDeck: widget.decks[widget.selectedIndex],
+                                        index: widget.selectedIndex,
+                              )
+                                )
+                        );
                       },
                       child: const Text('Add Card',
                         style: TextStyle (
@@ -84,6 +108,7 @@ class _SelectedDeckPageState extends State<SelectedDeckPage> {
                       //   );
                       //   },
                     ),
+
                     GestureDetector(
                       onTap: () {
                         print('delete card clicked');
@@ -104,6 +129,11 @@ class _SelectedDeckPageState extends State<SelectedDeckPage> {
                     GestureDetector(
                       onTap: () {
                         print('edit card clicked');
+
+                        Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) =>  EditCardsPage(title: widget.userName, decks: widget.decks, selectedIndex: widget.selectedIndex),
+                              ));
                       },
                       child: const Text('Edit Card',
                         style: TextStyle (
