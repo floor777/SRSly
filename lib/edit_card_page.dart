@@ -88,16 +88,14 @@ class _EditCardsPageState extends State<EditCardsPage> {
                                               widget.decks[widget.selectedIndex].cardsArray[index].backItem = widget.decks[widget.selectedIndex].cardsArray[widget.decks[widget.selectedIndex].cardsArray.length - 1].backItem;
                                               // set last item to null(delete last item from database)as
                                               //
-                                              print('lala below');
-                                              print(widget.decks[widget.selectedIndex].toString());
-                                              print('value to remove from database: ' + (widget.decks[widget.selectedIndex].cardsArray.length - 1).toString());
+
                                               // ref.child('users/' + widget.title + '/deck' + (widget.selectedIndex + 1).toString() + '/1/').update({
                                               //
                                               //   (widget.decks[widget.selectedIndex].cardsArray.length - 1).toString(): null
                                               // });
 
                                               // remove last item from deck
-                                              print('last item to fremove from deck index: ' + (widget.decks[widget.selectedIndex].cardsArray.length - 1).toString());
+
                                               widget.decks[widget.selectedIndex].cardsArray.removeAt(widget.decks[widget.selectedIndex].cardsArray.length - 1);
                                               //
 
@@ -124,7 +122,7 @@ class _EditCardsPageState extends State<EditCardsPage> {
                           );
                         }
                         else if(value == "Rename Card") {
-                          print('rename');
+
                           showDialog(
                               context: context,
                               builder: (ctx) => AlertDialog(
@@ -188,7 +186,7 @@ class _EditCardsPageState extends State<EditCardsPage> {
                         }
                       },
                       onCanceled: () {
-                        print("canceled ");
+
                       },
                       icon: Icon(Icons.settings),
                       itemBuilder: (_) {
@@ -199,30 +197,6 @@ class _EditCardsPageState extends State<EditCardsPage> {
                       },
                     ),
                     onTap: () {
-                      // print('this was the index: ' + index.toString());
-                      // print('widget.title: ' + widget.title);
-                      //
-                      // print('decks[index].deckname: ' +  widget.decks[index].deckName);
-                      //
-                      // print('decks: ' + widget.decks.toString());
-                      //
-                      // print('index: ' + index.toString());
-                      //asa
-                      try {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(builder: (context) =>
-                        //       SelectedDeckPage(userName:  widget.title,  decks: decks.isNotEmpty ? decks : [], selectedIndex: index)),
-                        // );
-                        // //saaasdadddaAsaaaaazzz1zsza
-
-                      }
-                      catch(e) {
-                        print('error found');
-                        print(e);
-
-                      }
-
 
                     },
                   )

@@ -1,14 +1,8 @@
-
-import 'dart:math';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled/deck_page.dart';
 import 'package:untitled/sign_up_page.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
-
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -33,45 +27,37 @@ class _LoginPageState extends State<LoginPage> {
       password: passwordTextController.text,
     );
 
-    // createData();
 
-    print('logged in successfully');
+
+
 
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) =>  MyDeckPage(title: usernameTextController.text.substring(0, usernameTextController.text.indexOf('.')))),
     );
   } on FirebaseAuthException catch (e) {
-    if (e.code == 'user-not-found') {
-      print('No user found for that email.');
-    } else if (e.code == 'wrong-password') {
-      print('Wrong password provided for that user.');
-    }
-    else {
-      print('different error:' + e.message.toString());
-    }
+    // if (e.code == 'user-not-found') {
+    //   print('No user found for that email.');
+    // } else if (e.code == 'wrong-password') {
+    //   print('Wrong password provided for that user.');
+    // }
+    // else {
+    //   print('different error:' + e.message.toString());
+    // }
   }
 
   }
 
-  bool treason = false;
+
   void createData() async{
-    print(usernameTextController.text);
-    print('in create data');
-    String hatred = "users/" + usernameTextController.text;
-    String result = hatred.substring(0, hatred.indexOf('.'));
+
+    String userName = "users/" + usernameTextController.text;
+    String result = userName.substring(0, userName.indexOf('.'));
 
     DataSnapshot userDataSnapshot = await databaseReference.child(result).get();
-    print('ds value below');
-    // }
-
-  }
 
 
-  void deleteData(){
-    databaseReference.child('users/user2').remove();
-    // databaseReference.child('flutterDevsTeam2').remove();
-    //     // databaseReference.child('flutterDevsTeam3').remove();
+
   }
 
   @override
@@ -123,12 +109,7 @@ class _LoginPageState extends State<LoginPage> {
                 Container(
 
                   margin: EdgeInsets.only(top: 10, bottom: 20),
-                  child: const Text(
-                    'Forgot password?',
-                    style: TextStyle(
-                      color: Colors.red
-                    ),
-                  ),
+
                 ),
                 Expanded(
                   flex: 10,
@@ -174,21 +155,13 @@ class _LoginPageState extends State<LoginPage> {
                           fontWeight: FontWeight.bold
                       ),
                     ),
-
                   ),
                 ),
-
               ],
             ),
           )
         ],
-
       )
-
-
-
-
     );
-
   }
 }
