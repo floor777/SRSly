@@ -92,31 +92,8 @@ class _AddCardPageState extends State<AddCardPage> {
               children: [
                 ElevatedButton(
                     onPressed: () async {
-                      print("add card pressed");
-                      // DataSnapshot testy = await ref.child('users/josh@gmail/' + 'deck' +
-                      //     (widget.index + 1).toString() ).get();
-                      // print('test below');
-                      // print(testy.value);
                       setState(() {
-                        print('cards array below');
-                        print(decks[widget.index].deckName);
-                        print(decks[widget.index].cardsArray.length.toString() + 'asd');
-
-                        // decks[widget.index].cardsArray.add([value])
                         List<Object?> cards = decks[widget.index].cardsArray;
-                        // print(cards);
-                        // decks[widget.index].cardsArray.forEach((element) {
-                        //   print(element.frontItem);
-                        //   Object? ob = [element.frontItem, element.backItem, 0];
-                        //   cards.add(ob);
-                        //   cards.add([frontTextController.text, backTextController.text, 0]);
-                        //
-                        //
-                        // });
-
-                        //asdsad
-                        print(widget.userName);
-                        print('username above');
 
                         ref.child('users/' + widget.userName + '/').update({
                           'deck' + (widget.index + 1).toString() +
@@ -134,17 +111,13 @@ class _AddCardPageState extends State<AddCardPage> {
                 ),
                 ElevatedButton(
                     onPressed: () {
-                      print("Cancel pressed");
-                      print(widget.currentDeck.cardsArray.length);
+
                       Navigator.pop(context);
                     },
                     child: Text('Cancel')
                 )
               ],
             )
-
-
-
           ],
         ),
 
