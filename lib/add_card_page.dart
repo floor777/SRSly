@@ -101,9 +101,6 @@ class _AddCardPageState extends State<AddCardPage> {
                         });
                         decks[widget.index].cardsArray.add(FlashCard(frontItem: frontTextController.text,
                             backItem: backTextController.text));
-
-
-
                       });
                     },
                     child: Text('Add Card')

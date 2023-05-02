@@ -30,7 +30,6 @@ class _CardFlippedPageState extends State<CardFlippedPage> {
             ),
             ),
 
-
             Container(
 
               child: Row(
@@ -46,16 +45,10 @@ class _CardFlippedPageState extends State<CardFlippedPage> {
                   )
                 ],
               )
-
-
             )
-
-
           ],
         ),
       ),
-
-
     );
   }
 }
