@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:untitled/login_page.dart';
-import 'package:untitled/main.dart';
 import 'package:untitled/selected_deck_page.dart';
 import 'deck.dart';
 import 'package:untitled/card.dart';
-import 'package:untitled/edit_decks_page.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class MyDeckPage extends StatefulWidget{
@@ -27,8 +24,7 @@ final ref = FirebaseDatabase.instance.ref();
 readDeckFromDatabase(String lovely) async {
   decks = [];
   List<Deck> tempdecks = [];
-  print('lovely below');
-  print(lovely);
+
   userName = lovely;
 
 
@@ -37,14 +33,12 @@ readDeckFromDatabase(String lovely) async {
 
   if (snapshot.exists) {
     Map<dynamic, dynamic> newDeck = Map<dynamic, dynamic>.from(snapshot.value as Map);
-    newDeck.forEach((k,v) => {
-      print('${k}: ${v}')
-    });
+
 
     for(int i = 1; i <= newDeck.length; i++) {
       Deck duck = Deck(deckName: newDeck['deck' + i.toString()][0],
           cardsArray: []);
-      print(i);
+
 
 
       for(int j = 0; j < newDeck['deck' + i.toString()][1].length; j++) {
@@ -66,7 +60,7 @@ readDeckFromDatabase(String lovely) async {
     return decks;
 }
   else {
-    print('No data available.');
+    return [];
   }
 }
 
@@ -83,7 +77,7 @@ class _MyDeckPageState extends State<MyDeckPage> {
 
 
   String truncateWithEllipsis(int cutoff, String myString) {
-    // print('cutoff is: ' + cutoff.toString());
+
     int buffer = cutoff - myString.length;
 
     return (myString.length <= cutoff)
@@ -119,8 +113,7 @@ class _MyDeckPageState extends State<MyDeckPage> {
                   future: readDeckFromDatabase(widget.title),
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
                     if(decks.isNotEmpty) {
-                      print('deck wasnt empty');
-                      print(decks);
+
                     }
                     return ListView.builder(
                         shrinkWrap: true,
@@ -165,7 +158,7 @@ class _MyDeckPageState extends State<MyDeckPage> {
                                     );
                                   }
                                   else if(value == "Rename Deck") {
-                                    print('rename');
+
                                     showDialog(
                                         context: context,
                                         builder: (ctx) => AlertDialog(
@@ -188,16 +181,6 @@ class _MyDeckPageState extends State<MyDeckPage> {
                                                       content: Text(renameController.text);
                                                       String bark = renameController.text;
                                                       setState(() {
-                                                        // print('cards array below');
-                                                        // print(decks[index].cardsArray);
-                                                        // List<Object?> cards = [];
-                                                        // decks[index].cardsArray.forEach((element) {
-                                                        //   Object? ob = [element.frontItem, element.backItem, 0];
-                                                        //   cards.add(ob);
-                                                        //
-                                                        //
-                                                        // });
-//
                                                       ref.child('users/${widget.title}').update({
                                                         'deck${index + 1}/0': bark
                                                       });
@@ -225,7 +208,7 @@ class _MyDeckPageState extends State<MyDeckPage> {
                                   }
                                   },
                                 onCanceled: () {
-                                  print("canceled ");
+
                                   },
                                 icon: Icon(Icons.settings),
                                 itemBuilder: (_) {
@@ -236,31 +219,11 @@ class _MyDeckPageState extends State<MyDeckPage> {
                                   },
                               ),
                               onTap: () {
-                                print('this was the index: ' + index.toString());
-                                print('widget.title: ' + widget.title);
-
-                                print('decks[index].deckname: ' +  decks[index].deckName);
-
-                                print('decks: ' + decks.toString());
-
-                                print('index: ' + index.toString());
-                                //asa
-                                try {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(builder: (context) =>
                                         SelectedDeckPage(userName:  widget.title,  decks: decks.isNotEmpty ? decks : [], selectedIndex: index)),
                                   );
-                                  //saaasdadddaAsaaaaazzz1zsza
-
-                                }
-                                catch(e) {
-                                  print('error found');
-                                  print(e);
-
-                                }
-
-
                                 },
                             )
                     );
